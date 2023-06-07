@@ -12,7 +12,10 @@ exports.getBookById = (request, response, next) => {
 exports.postBook = (request, response, next) => {
     const {name} = request.body;
     if (!name) return response.status(500).json({statusCode: 500, error: "Name filed required"});
-    const id = crypto.randomUUID();
+    let id = crypto.randomUUID();
+    while (fileSystem.readBooks().find(book => book.id == id)) {
+        id = crypto.randomUUID();
+    }
     const book = {id: id, name: name};
     const books = fileSystem.readBooks();
     books.push(book);

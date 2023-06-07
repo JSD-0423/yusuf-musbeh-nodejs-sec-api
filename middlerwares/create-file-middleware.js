@@ -12,7 +12,7 @@ module.exports = (request, response, next) => {
         );
     } else {
         const fileContent = fs.readFileSync(
-            path.join(__dirname, "..", "data", "books.json")
+            path.join(__dirname, "..", "data", "books.json"),"utf8"
         );
         if (fileContent === "") {
             fs.writeFileSync(
